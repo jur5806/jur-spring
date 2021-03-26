@@ -1,43 +1,72 @@
 package com.jurspring.jt.home;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "user")
+@ToString
 @JsonIgnoreProperties({"handler","hibernateLazyInitializer"})
-
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    private int id;
 
-    String username;
-    String password;
+    /**
+     * Username.
+     */
+//    @NotEmpty(message = "用户名不能为空")
+    @NotEmpty(message = "用户名不能为空")
+    private String username;
 
-    public int getId() {
-        return id;
-    }
+    /**
+     * Password.
+     */
+    private String password;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    /**
+     * Salt for encoding.
+     */
+    private String salt;
 
-    public String getUsername() {
-        return username;
-    }
+    /**
+     * Real name.
+     */
+    private String name;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    /**
+     * Phone number.
+     */
+    private String phone;
 
-    public String getPassword() {
-        return password;
-    }
+    /**
+     * Email address.
+     *
+     * A Email address can be null,but should be correct if exists.
+     */
+    @Email(message = "请输入正确的邮箱")
+    private String email;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    /**
+     * User status.
+     */
+    private boolean enabled;
+
+    /**
+     * Transient property for storing role owned by current user.
+     */
+    @Transient
+    private List<AdminRole> roles;
+
 }
