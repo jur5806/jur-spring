@@ -68,7 +68,6 @@ public class UserService {
         email = HtmlUtils.htmlEscape(email);
         user.setEmail(email);
         user.setEnabled(true);
-
         if (username.equals("") || password.equals("")) {
             return 0;
         }

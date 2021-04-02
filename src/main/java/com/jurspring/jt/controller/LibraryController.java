@@ -21,24 +21,24 @@ public class LibraryController {
     @Autowired
     BookService bookService;
 
-    @GetMapping("/api/books")
+    @GetMapping("/march/books")
     public Result listBooks() {
         return ResultFactory.buildSuccessResult(bookService.list());
     }
 
-    @PostMapping("/api/admin/content/books")
+    @PostMapping("/march/admin/content/books")
     public Result addOrUpdateBooks(@RequestBody @Valid Book book) {
         bookService.addOrUpdate(book);
         return ResultFactory.buildSuccessResult("修改成功");
     }
 
-    @PostMapping("/api/admin/content/books/delete")
+    @PostMapping("/march/admin/content/books/delete")
     public Result deleteBook(@RequestBody @Valid Book book) {
         bookService.deleteById(book.getId());
         return ResultFactory.buildSuccessResult("删除成功");
     }
 
-    @GetMapping("/api/search")
+    @GetMapping("/march/search")
     public Result searchResult(@RequestParam("keywords") String keywords) {
         if ("".equals(keywords)) {
             return ResultFactory.buildSuccessResult(bookService.list());
@@ -47,7 +47,7 @@ public class LibraryController {
         }
     }
 
-    @GetMapping("/api/categories/{cid}/books")
+    @GetMapping("/march/categories/{cid}/books")
     public Result listByCategory(@PathVariable("cid") int cid) {
         if (0 != cid) {
             return ResultFactory.buildSuccessResult(bookService.listByCategory(cid));
@@ -56,7 +56,7 @@ public class LibraryController {
         }
     }
 
-    @PostMapping("/api/admin/content/books/covers")
+    @PostMapping("/march/admin/content/books/covers")
     public String coversUpload(MultipartFile file) {
         String folder = "D:/workspace/img";
         File imageFolder = new File(folder);
@@ -66,7 +66,7 @@ public class LibraryController {
             f.getParentFile().mkdirs();
         try {
             file.transferTo(f);
-            String imgURL = "http://localhost:8443/api/file/" + f.getName();
+            String imgURL = "http://localhost:8443/march/file/" + f.getName();
             return imgURL;
         } catch (IOException e) {
             e.printStackTrace();

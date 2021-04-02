@@ -55,7 +55,7 @@ public class User {
      *
      * A Email address can be null,but should be correct if exists.
      */
-    @Email(message = "请输入正确的邮箱")
+//    @Email(message = "请输入正确的邮箱")
     private String email;
 
     /**

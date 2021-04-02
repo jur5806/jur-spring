@@ -5,6 +5,7 @@ import com.jurspring.jt.home.User;
 import com.jurspring.jt.result.Result;
 import com.jurspring.jt.result.ResultFactory;
 import com.jurspring.jt.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
+@Slf4j
 @RestController
+//@RequestMapping("/march")
 public class LoginController {
 
     @Autowired
@@ -46,9 +49,12 @@ public class LoginController {
     }
 
     @PostMapping("/march/register")
+    @ResponseBody
     public Result register(@RequestBody User user) {
+        log.info("=============555 =========");
         int status = userService.register(user);
-        System.out.println("------+"+status);
+        log.info("=============1111 =========");
+        System.out.println(status);
         switch (status) {
             case 0:
                 return ResultFactory.buildFailResult("用户名和密码不能为空");

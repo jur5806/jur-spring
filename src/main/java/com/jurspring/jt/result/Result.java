@@ -1,5 +1,8 @@
 package com.jurspring.jt.result;
 
+import lombok.Data;
+
+@Data
 public class Result {
     //响应器
     private int code;
