@@ -29,7 +29,7 @@ public class RoleController {
         return ResultFactory.buildSuccessResult(adminRoleService.listWithPermsAndMenus());
     }
 
-    @PutMapping("/marchadmin/role/status")
+    @PutMapping("/march/role/status")
     public Result updateRoleStatus(@RequestBody AdminRole requestRole) {
         AdminRole adminRole = adminRoleService.updateRoleStatus(requestRole);
         String message = "用户" + adminRole.getNameZh() + "状态更新成功";

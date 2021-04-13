@@ -2,10 +2,12 @@ package com.jurspring.jt.home;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -63,6 +65,15 @@ public class User {
      */
     private boolean enabled;
 
+    /**
+     * User setSex
+     */
+    @Column(name = "sex")
+    private int Sex ;
+
+    @CreatedDate
+    @Column(name = "birth",nullable = true)
+    private Date birthDate;
     /**
      * Transient property for storing role owned by current user.
      */

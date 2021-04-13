@@ -6,6 +6,7 @@ import com.jurspring.jt.home.User;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -23,6 +24,10 @@ public class UserDTO implements OutputConverter<UserDTO, User> {
     private String email;
 
     private boolean enabled;
+
+    private int sex;
+
+    private Date birthDate;
 
     private List<AdminRole> roles;
 

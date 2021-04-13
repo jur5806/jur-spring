@@ -51,10 +51,7 @@ public class LoginController {
     @PostMapping("/march/register")
     @ResponseBody
     public Result register(@RequestBody User user) {
-        log.info("=============555 =========");
         int status = userService.register(user);
-        log.info("=============1111 =========");
-        System.out.println(status);
         switch (status) {
             case 0:
                 return ResultFactory.buildFailResult("用户名和密码不能为空");

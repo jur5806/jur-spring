@@ -64,6 +64,8 @@ public class AdminRoleService {
 
     public void editRole(@RequestBody AdminRole role) {
         adminRoleDAO.save(role);
-        adminRolePermissionService.savePermChanges(role.getId(), role.getPerms());
+        if(role.getPerms() != null) {
+            adminRolePermissionService.savePermChanges(role.getId(), role.getPerms());
+        }
     }
 }

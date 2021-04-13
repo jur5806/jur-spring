@@ -4,15 +4,17 @@ import com.jurspring.jt.dao.UserDAO;
 import com.jurspring.jt.dto.UserDTO;
 import com.jurspring.jt.home.AdminRole;
 import com.jurspring.jt.home.User;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public class UserService {
     @Autowired
@@ -31,10 +33,10 @@ public class UserService {
         List<UserDTO> userDTOS = users
                 .stream().map(user -> (UserDTO) new UserDTO().convertFrom(user)).collect(Collectors.toList());
 
-        userDTOS.forEach(u -> {
-            List<AdminRole> roles = adminRoleService.listRolesByUser(u.getUsername());
-            u.setRoles(roles);
-        });
+//        userDTOS.forEach(u -> {
+//            List<AdminRole> roles = adminRoleService.listRolesByUser(u.getUsername());
+//            u.setRoles(roles);
+//        });
 
         return userDTOS;
     }
@@ -99,21 +101,25 @@ public class UserService {
 
     public User resetPassword(User user) {
         User userInDB = userDAO.findByUsername(user.getUsername());
+        String password = user.getPassword();
         String salt = new SecureRandomNumberGenerator().nextBytes().toString();
         int times = 2;
         userInDB.setSalt(salt);
-        String encodedPassword = new SimpleHash("md5", "123", salt, times).toString();
+        String encodedPassword = new SimpleHash("md5", password, salt, times).toString();
         userInDB.setPassword(encodedPassword);
         return userDAO.save(userInDB);
     }
 
     public void editUser(User user) {
+        log.info("-----个人信息修改"+user);
         User userInDB = userDAO.findByUsername(user.getUsername());
         userInDB.setName(user.getName());
         userInDB.setPhone(user.getPhone());
         userInDB.setEmail(user.getEmail());
+        userInDB.setSex(user.getSex());
+        userInDB.setBirthDate(user.getBirthDate());
         userDAO.save(userInDB);
-        adminUserRoleService.saveRoleChanges(userInDB.getId(), user.getRoles());
+//        adminUserRoleService.saveRoleChanges(userInDB.getId(), user.getRoles());
     }
 
     public void deleteById(int id) {
