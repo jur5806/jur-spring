@@ -46,6 +46,11 @@ public class AdminMenuService {
         return menus;
     }
 
+    /**
+     * 获取某个角色的权限
+     * @param rid
+     * @return
+     */
     public List<AdminMenu> getMenusByRoleId(int rid) {
         List<Integer> menuIds = adminRoleMenuService.findAllByRid(rid)
                 .stream().map(AdminRoleMenu::getMid).collect(Collectors.toList());
@@ -56,9 +61,8 @@ public class AdminMenuService {
     }
 
     /**
-     * Adjust the Structure of the menu.
+     * 形成权限树
      *
-     * @param menus Menu items list without structure
      */
     public void handleMenus(List<AdminMenu> menus) {
         menus.forEach(m -> {

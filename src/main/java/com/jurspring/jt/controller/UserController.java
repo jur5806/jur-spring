@@ -23,7 +23,7 @@ public class UserController {
         return ResultFactory.buildSuccessResult(userService.list());
     }
 
-    @PutMapping("/march/admin/user/status")
+    @PutMapping("/march/admin/userStatus")
     public Result updateUserStatus(@RequestBody @Valid User requestUser) {
         userService.updateUserStatus(requestUser);
         return ResultFactory.buildSuccessResult("用户状态更新成功");

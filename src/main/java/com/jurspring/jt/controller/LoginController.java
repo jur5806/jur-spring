@@ -27,7 +27,7 @@ public class LoginController {
     public Result login(@RequestBody User requestUser) {
         String username = requestUser.getUsername();
         username = HtmlUtils.htmlEscape(username);
-
+        log.info("=====用户登录====");
         Subject subject = SecurityUtils.getSubject();
 //        subject.getSession().setTimeout(10000);
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, requestUser.getPassword());
@@ -51,6 +51,7 @@ public class LoginController {
     @PostMapping("/march/register")
     @ResponseBody
     public Result register(@RequestBody User user) {
+        log.info("=====用户注册====");
         int status = userService.register(user);
         switch (status) {
             case 0:
@@ -65,6 +66,7 @@ public class LoginController {
 
     @GetMapping("/march/logout")
     public Result logout() {
+        log.info("=====用户注销====");
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return ResultFactory.buildSuccessResult("成功登出");
