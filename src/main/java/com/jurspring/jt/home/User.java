@@ -69,7 +69,7 @@ public class User {
      * User setSex
      */
     @Column(name = "sex")
-    private int Sex ;
+    private int Sex = 0;
 
     @CreatedDate
     @Column(name = "birth",nullable = true)

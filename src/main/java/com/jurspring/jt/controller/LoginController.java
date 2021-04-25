@@ -29,9 +29,7 @@ public class LoginController {
         username = HtmlUtils.htmlEscape(username);
         log.info("=====用户登录====");
         Subject subject = SecurityUtils.getSubject();
-//        subject.getSession().setTimeout(10000);
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, requestUser.getPassword());
-
         usernamePasswordToken.setRememberMe(true);
         try {
             System.out.println(usernamePasswordToken);
@@ -47,7 +45,6 @@ public class LoginController {
             return ResultFactory.buildFailResult("账号不存在");
         }
     }
-
     @PostMapping("/march/register")
     @ResponseBody
     public Result register(@RequestBody User user) {

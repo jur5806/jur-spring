@@ -82,7 +82,9 @@ public class UserService {
 
         // 默认生成 16 位盐
         String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        //得到hash算法迭代次数
         int times = 2;
+        //得到hash后的密码
         String encodedPassword = new SimpleHash("md5", password, salt, times).toString();
 
         user.setSalt(salt);
