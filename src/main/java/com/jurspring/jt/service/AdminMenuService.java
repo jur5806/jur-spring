@@ -1,10 +1,9 @@
 package com.jurspring.jt.service;
 
 import com.jurspring.jt.dao.AdminMenuDAO;
-import com.jurspring.jt.home.AdminMenu;
-import com.jurspring.jt.home.AdminRoleMenu;
-import com.jurspring.jt.home.AdminUserRole;
-import com.jurspring.jt.home.User;
+import com.jurspring.jt.dao.PointVeiwDAO;
+import com.jurspring.jt.dao.UserDAO;
+import com.jurspring.jt.home.*;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +21,21 @@ public class AdminMenuService {
     AdminUserRoleService adminUserRoleService;
     @Autowired
     AdminRoleMenuService adminRoleMenuService;
+    @Autowired
+    UserDAO userDAO;
+    @Autowired
+    PointVeiwDAO pointVeiwDAO;
 
     public List<AdminMenu> getAllByParentId(int parentId) {
+        List<User> Users = userDAO.findAll();
+        Users.forEach(u ->{
+            List<PointVeiw> pointview = pointVeiwDAO.findAllByuserId(u.getId());
+            //求列表pointview，PointsNum字段总和
+            int total = pointview.stream().mapToInt(PointVeiw::getPointsNum).sum();
+            u.setSumPoints(total);
+            User userInDB = userDAO.findByUsername(u.getUsername());
+            userDAO.save(userInDB);
+        });
         return adminMenuDAO.findAllByParentId(parentId);
     }
 
@@ -69,7 +81,6 @@ public class AdminMenuService {
             List<AdminMenu> children = getAllByParentId(m.getId());
             m.setChildren(children);
         });
-
         menus.removeIf(m -> m.getParentId() != 0);
     }
 }

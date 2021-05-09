@@ -71,6 +71,12 @@ public class User {
     @Column(name = "sex")
     private int Sex = 0;
 
+    /**
+     * User setSex
+     */
+    @Column(name = "sum_points")
+    private int sumPoints = 0;
+
     @CreatedDate
     @Column(name = "birth",nullable = true)
     private Date birthDate;

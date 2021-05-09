@@ -18,8 +18,14 @@ public class RecruitService {
      * 获取职位列表
      * @return
      */
-    public List<Recruit> list() {
-//        Sort sort = Sort.by(Sort.Direction.DESC, "recruit_id");
+    public List<Recruit> list(String name,Integer id) {
+        if ("".equals(name) && "".equals(id)) {
+            return recruitDAO.findAll();
+        } else if ("".equals(name) && !"".equals(id)) {
+            return recruitDAO.findByPositionTypeId(id);
+        } else if (!"".equals(name) && !"".equals(id)){
+            return recruitDAO.findAllByStationNameContainingOrWorkPlaceContainingAndPositionTypeId(name, name, id);
+        }
         return recruitDAO.findAll();
     }
     /**

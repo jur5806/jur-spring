@@ -26,7 +26,11 @@ public class UserService {
 
     public List<UserDTO> list() {
         List<User> users = userDAO.findAll();
-
+//        if(!"".equals(username)){
+//            userDAO.findByUsernameContaining(username);
+//        }else{
+//            users = userDAO.findAll();
+//        }
         // Find all roles in DB to enable JPA persistence context.
 //        List<AdminRole> allRoles = adminRoleService.findAll();
 

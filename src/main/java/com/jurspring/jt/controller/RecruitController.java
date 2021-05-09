@@ -19,9 +19,13 @@ public class RecruitController {
     RecruitService recruitService;
 
     @GetMapping("/march/recruitList")
-    public Result listRecruit() {
-        log.info("====8888====");
-        return ResultFactory.buildSuccessResult(recruitService.list());
+    public Result listRecruit(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "id",required = false)Integer id) throws Exception{
+        if(name != null){
+            name = name.replaceAll(" ","");
+        }
+        return ResultFactory.buildSuccessResult(recruitService.list(name, id));
     }
 
     @PostMapping("/march/recruitAdd")

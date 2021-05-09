@@ -19,7 +19,7 @@ public class UserController {
     AdminUserRoleService adminUserRoleService;
 
     @GetMapping("/march/admin/user")
-    public Result listUsers() {
+    public Result listUsers() throws Exception  {
         return ResultFactory.buildSuccessResult(userService.list());
     }
 
