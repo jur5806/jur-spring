@@ -42,5 +42,9 @@ public class resumeinfoController {
         resumeInfoService.updateApprovalState(resumeinfo);
         return ResultFactory.buildSuccessResult("状态更新成功");
     }
+    @GetMapping("/march/getResumeInfoByUserId")
+    public Result getResumeInfoByUserId(Integer userId) {
+        return ResultFactory.buildSuccessResult(resumeInfoService.findAllByuserId(userId));
+    }
 
 }

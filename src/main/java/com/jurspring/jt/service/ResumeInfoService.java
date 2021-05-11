@@ -1,6 +1,7 @@
 package com.jurspring.jt.service;
 
 import com.jurspring.jt.dao.ResumeInfoDAO;
+import com.jurspring.jt.home.PointVeiw;
 import com.jurspring.jt.home.Recruit;
 import com.jurspring.jt.home.Resumeinfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,13 @@ public class ResumeInfoService {
         Resumeinfo resumeinfoInDB = resumeinfoDAO.findByresumeId(resumeinfo.getResumeId());
         resumeinfoInDB.setApprovalState(2);
         resumeinfoDAO.save(resumeinfoInDB);
+    }
+
+
+    /**
+     * 我的推荐
+     */
+    public List<Resumeinfo>  findAllByuserId(int getResumeByUserId) {
+        return resumeinfoDAO.findAllByTjId(getResumeByUserId);
     }
 }

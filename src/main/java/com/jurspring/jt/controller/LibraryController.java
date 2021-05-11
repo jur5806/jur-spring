@@ -56,7 +56,7 @@ public class LibraryController {
         }
     }
 
-    @PostMapping("/march/admin/content/books/covers")
+    @PostMapping("/march/covers")
     public String coversUpload(MultipartFile file) {
         String folder = "D:/workspace/img";
         File imageFolder = new File(folder);
@@ -66,7 +66,7 @@ public class LibraryController {
             f.getParentFile().mkdirs();
         try {
             file.transferTo(f);
-            String imgURL = "http://localhost:8443/march/file/" + f.getName();
+            String imgURL = "http://localhost:8822/march/file/" + f.getName();
             return imgURL;
         } catch (IOException e) {
             e.printStackTrace();
