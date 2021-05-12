@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ResumeInfoDAO extends JpaRepository<Resumeinfo,Integer> {
 
-    Resumeinfo findByresumeId(Integer resumeId);
+    Resumeinfo findByresumeId(int resumeId);
     List<Resumeinfo> findAllByTjId(int userId);
-    List<Resumeinfo> findByHrId(Integer hrId);
+    List<Resumeinfo> findByHrIdAndRecruitId(Integer hrId, Integer recruitId);
 }

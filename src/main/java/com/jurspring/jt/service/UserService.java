@@ -37,10 +37,10 @@ public class UserService {
         List<UserDTO> userDTOS = users
                 .stream().map(user -> (UserDTO) new UserDTO().convertFrom(user)).collect(Collectors.toList());
 
-//        userDTOS.forEach(u -> {
-//            List<AdminRole> roles = adminRoleService.listRolesByUser(u.getUsername());
-//            u.setRoles(roles);
-//        });
+        userDTOS.forEach(u -> {
+            List<AdminRole> roles = adminRoleService.listRolesByUser(u.getUsername());
+            u.setRoles(roles);
+        });
 
         return userDTOS;
     }
@@ -125,7 +125,7 @@ public class UserService {
         userInDB.setSex(user.getSex());
         userInDB.setBirthDate(user.getBirthDate());
         userDAO.save(userInDB);
-//        adminUserRoleService.saveRoleChanges(userInDB.getId(), user.getRoles());
+        adminUserRoleService.saveRoleChanges(userInDB.getId(), user.getRoles());
     }
 
     public void deleteById(int id) {

@@ -44,7 +44,7 @@ public class ResumeInfoService {
         return resumeinfoDAO.findAllByTjId(getResumeByUserId);
     }
 
-    public List<Resumeinfo> getByHrId(int hrId) {
-        return resumeinfoDAO.findByHrId(hrId);
+    public List<Resumeinfo> getByHrId(int hrId, int recruitId) {
+        return resumeinfoDAO.findByHrIdAndRecruitId(hrId,recruitId);
     }
 }

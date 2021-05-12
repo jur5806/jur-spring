@@ -43,6 +43,8 @@ public class PointVeiw {
 
     private int dealer;
 
+    private int resumeId;
+
 
 
 }
