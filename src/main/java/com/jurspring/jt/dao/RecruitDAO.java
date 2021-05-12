@@ -11,6 +11,7 @@ public interface RecruitDAO extends JpaRepository<Recruit,Integer> {
 
     Recruit findByRecruitId(Integer RecruitId);
 //    Page<Recruit> findByRecruitId(String )
+    List<Recruit> findByHrId(Integer hrId);
     List<Recruit> findAllByStationNameContainingOrWorkPlaceContaining(String name,String work);
     List<Recruit> findByPositionTypeId(Integer id);
     List<Recruit> findAllByStationNameContainingOrWorkPlaceContainingAndPositionTypeId(String name,String work,Integer id);

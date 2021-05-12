@@ -65,4 +65,7 @@ public class Recruit {
     @Column(name = "enabled")
     private boolean enabled=true;
 
+    @Column(name = "hr_id")
+    private int hrId;
+
 }

@@ -47,4 +47,9 @@ public class resumeinfoController {
         return ResultFactory.buildSuccessResult(resumeInfoService.findAllByuserId(userId));
     }
 
+    @GetMapping("/march/getByhrIdResumeList")
+    public Result getByhrIdList(Integer hrId) {
+        return ResultFactory.buildSuccessResult(resumeInfoService.getByHrId(hrId));
+    }
+
 }

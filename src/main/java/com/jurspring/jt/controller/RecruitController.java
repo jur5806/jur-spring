@@ -48,4 +48,12 @@ public class RecruitController {
         return ResultFactory.buildSuccessResult("状态更新成功");
     }
 
+    @GetMapping("/march/getByhrIdList")
+    public Result getByhrIdList(Integer hrId) {
+        return ResultFactory.buildSuccessResult(recruitService.getByHrId(hrId));
+    }
+
+
+
+
 }

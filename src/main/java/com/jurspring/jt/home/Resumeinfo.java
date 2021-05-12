@@ -113,4 +113,7 @@ public class Resumeinfo {
     @Column(name = "resume_type")
     private Integer resumeType;
 
+    @Column(name = "hr_id")
+    private int hrId;
+
 }

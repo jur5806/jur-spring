@@ -1,6 +1,7 @@
 package com.jurspring.jt.service;
 
 import com.jurspring.jt.dao.RecruitDAO;
+import com.jurspring.jt.home.PointVeiw;
 import com.jurspring.jt.home.Recruit;
 import com.jurspring.jt.util.DateUtilJava8;
 import lombok.extern.slf4j.Slf4j;
@@ -55,5 +56,9 @@ public class RecruitService {
         log.info("===="+recruitInDB);
         recruitInDB.setEnabled(false);
         recruitDAO.save(recruitInDB);
+    }
+
+    public List<Recruit> getByHrId(int hrId) {
+        return recruitDAO.findByHrId(hrId);
     }
 }
