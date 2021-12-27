@@ -26,7 +26,8 @@ public class PointVeiwService {
     ResumeInfoDAO resumeinfoDAO;
 
     public List<PointVeiw> list() {
-        return pointVeiwDAO.findAll();
+        Sort sort = Sort.by(Sort.Direction.DESC, "pointsId");
+        return pointVeiwDAO.findAll(sort);
     }
 
     public List<PointVeiw>  findAllByuserId(int userId) {
@@ -40,11 +41,12 @@ public class PointVeiwService {
         }else if(pointVeiw.getChangeType() == 0) {
             userInDB.setSumPoints(userInDB.getSumPoints()-point);
         }
-        pointVeiw.setName(userInDB.getName());
-        pointVeiw.setPhone(userInDB.getPhone());
+        Resumeinfo resumeinfo = resumeinfoDAO.findByresumeId(pointVeiw.getResumeId());
+        pointVeiw.setName(resumeinfo.getRecommendedName());
+        pointVeiw.setPhone(resumeinfo.getRecommendedTelephone());
         pointVeiw.setEventTime(new Date());
         userDAO.save(userInDB);
-        Resumeinfo resumeinfo = resumeinfoDAO.findByresumeId(pointVeiw.getResumeId());
+        log.info("---"+pointVeiw.getEventType()+"-----");
         resumeinfo.setApprovalState(pointVeiw.getEventType());
         resumeinfoDAO.save(resumeinfo);
         pointVeiwDAO.save(pointVeiw);

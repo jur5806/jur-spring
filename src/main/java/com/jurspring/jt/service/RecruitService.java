@@ -1,19 +1,27 @@
 package com.jurspring.jt.service;
 
 import com.jurspring.jt.dao.RecruitDAO;
+import com.jurspring.jt.dao.ResumeInfoDAO;
+import com.jurspring.jt.dto.UserDTO;
 import com.jurspring.jt.home.PointVeiw;
 import com.jurspring.jt.home.Recruit;
+import com.jurspring.jt.home.Resumeinfo;
 import com.jurspring.jt.util.DateUtilJava8;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class RecruitService {
     @Autowired
     RecruitDAO recruitDAO;
+    @Autowired
+    ResumeInfoDAO resumeinfoDAO;
 
     /**
      * 获取职位列表
@@ -30,7 +38,8 @@ public class RecruitService {
             return recruitDAO.findAllByStationNameContainingOrWorkPlaceContaining(name, name);
         } else {
             log.info("全部");
-            return recruitDAO.findAll();
+            Sort sort = Sort.by(Sort.Direction.DESC, "recruitId");
+            return recruitDAO.findAll(sort);
 
         }
 //        return recruitDAO.findAll();
@@ -59,6 +68,18 @@ public class RecruitService {
     }
 
     public List<Recruit> getByHrId(int hrId) {
+
+        List<Recruit> recruits= recruitDAO.findByHrId(hrId);
+        recruits.forEach(r -> {
+            int id = r.getRecruitId();
+            List<Resumeinfo> resumeinfo= resumeinfoDAO.findAllByRecruitId(r.getRecruitId());
+            r.setDepartmentState(resumeinfo.size());
+            recruitDAO.save(r);
+        });
         return recruitDAO.findByHrId(hrId);
+    }
+
+    public Recruit LookById(int recruitId) {
+        return recruitDAO.findByRecruitId(recruitId);
     }
 }

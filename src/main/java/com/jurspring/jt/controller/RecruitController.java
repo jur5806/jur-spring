@@ -53,6 +53,14 @@ public class RecruitController {
         return ResultFactory.buildSuccessResult(recruitService.getByHrId(hrId));
     }
 
+    @GetMapping("/march/LookById")
+    public Result viewById(Integer recruitId) {
+        return ResultFactory.buildSuccessResult(recruitService.LookById(recruitId));
+    }
+
+
+
+
 
 
 

@@ -1,8 +1,10 @@
 package com.jurspring.jt.service;
 
+import com.jurspring.jt.dao.AdminUserRoleDAO;
 import com.jurspring.jt.dao.UserDAO;
 import com.jurspring.jt.dto.UserDTO;
 import com.jurspring.jt.home.AdminRole;
+import com.jurspring.jt.home.AdminUserRole;
 import com.jurspring.jt.home.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -23,6 +25,8 @@ public class UserService {
     AdminRoleService adminRoleService;
     @Autowired
     AdminUserRoleService adminUserRoleService;
+    @Autowired
+    AdminUserRoleDAO adminUserRoleDAO;
 
     public List<UserDTO> list() {
         List<User> users = userDAO.findAll();
@@ -95,9 +99,16 @@ public class UserService {
         user.setPassword(encodedPassword);
 
         userDAO.save(user);
+        User userInDB = userDAO.findByUsername(user.getUsername());
+        AdminUserRole adminUserRole = new AdminUserRole();
+        adminUserRole.setRid(3);
+        adminUserRole.setUid(userInDB.getId());
+        adminUserRoleDAO.save(adminUserRole);
+
 
         return 1;
     }
+
 
     public void updateUserStatus(User user) {
         User userInDB = userDAO.findByUsername(user.getUsername());

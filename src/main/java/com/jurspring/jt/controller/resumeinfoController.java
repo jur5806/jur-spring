@@ -48,8 +48,8 @@ public class resumeinfoController {
     }
 
     @GetMapping("/march/getByhrIdResumeList")
-    public Result getByhrIdList(Integer hrId,Integer recruitId) {
-        return ResultFactory.buildSuccessResult(resumeInfoService.getByHrId(hrId,recruitId));
+    public Result getByhrIdList(Integer hrId,Integer recruitId,Integer state) {
+        return ResultFactory.buildSuccessResult(resumeInfoService.getByHrId(hrId,recruitId,state));
     }
 
 }

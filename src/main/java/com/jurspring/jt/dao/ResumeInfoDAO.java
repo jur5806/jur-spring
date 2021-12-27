@@ -12,4 +12,7 @@ public interface ResumeInfoDAO extends JpaRepository<Resumeinfo,Integer> {
     Resumeinfo findByresumeId(int resumeId);
     List<Resumeinfo> findAllByTjId(int userId);
     List<Resumeinfo> findByHrIdAndRecruitId(Integer hrId, Integer recruitId);
+    List<Resumeinfo> findAllByRecruitId(int recruitId);
+    List<Resumeinfo> findByHrIdAndRecruitIdAndAndApprovalState(Integer hrId, Integer recruitId, Integer state);
+
 }

@@ -5,6 +5,7 @@ import com.jurspring.jt.home.PointVeiw;
 import com.jurspring.jt.home.Recruit;
 import com.jurspring.jt.home.Resumeinfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +15,8 @@ public class ResumeInfoService {
     @Autowired
     ResumeInfoDAO resumeinfoDAO;
     public List<Resumeinfo> list() {
-//        Sort sort = Sort.by(Sort.Direction.DESC, "recruit_id");
-        return resumeinfoDAO.findAll();
+        Sort sort = Sort.by(Sort.Direction.DESC, "resumeId");
+        return resumeinfoDAO.findAll(sort);
     }
     /**
      * 添加简历
@@ -32,8 +33,8 @@ public class ResumeInfoService {
      */
     public void updateApprovalState(Resumeinfo resumeinfo){
         Resumeinfo resumeinfoInDB = resumeinfoDAO.findByresumeId(resumeinfo.getResumeId());
-        resumeinfoInDB.setApprovalState(2);
         resumeinfoDAO.save(resumeinfoInDB);
+
     }
 
 
@@ -44,7 +45,11 @@ public class ResumeInfoService {
         return resumeinfoDAO.findAllByTjId(getResumeByUserId);
     }
 
-    public List<Resumeinfo> getByHrId(int hrId, int recruitId) {
-        return resumeinfoDAO.findByHrIdAndRecruitId(hrId,recruitId);
+    public List<Resumeinfo> getByHrId(int hrId, int recruitId,int state) {
+        if(state != 4){
+            return resumeinfoDAO.findByHrIdAndRecruitIdAndAndApprovalState(hrId,recruitId,state);
+        }else{
+            return resumeinfoDAO.findByHrIdAndRecruitId(hrId,recruitId);
+        }
     }
 }

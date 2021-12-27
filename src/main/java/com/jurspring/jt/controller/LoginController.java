@@ -38,6 +38,7 @@ public class LoginController {
             if (!user.isEnabled()) {
                 return ResultFactory.buildFailResult("该用户已被禁用");
             }
+
             return ResultFactory.buildSuccessResult(user);
         } catch (IncorrectCredentialsException e) {
             return ResultFactory.buildFailResult("密码错误");

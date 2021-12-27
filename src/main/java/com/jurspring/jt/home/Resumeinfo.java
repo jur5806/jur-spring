@@ -45,7 +45,7 @@ public class Resumeinfo {
     private Integer recommendedAge;
 
     @Column(name = "approval_state")
-    private Integer approvalState;
+    private Integer approvalState = 0;
 
     @Column(name = "ploltics")
     private String recommendedPolitical;
@@ -72,7 +72,7 @@ public class Resumeinfo {
     private String seniority;
 
     @Column(name = "telephone")
-    private Integer recommendedTelephone;
+    private String recommendedTelephone;
 
     @Column(name = "address")
     private String recommendedAddress;
