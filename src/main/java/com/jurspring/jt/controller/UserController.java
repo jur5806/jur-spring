@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     AdminUserRoleService adminUserRoleService;
 
-    @GetMapping("/march/admin/user")
+    @GetMapping("/march/admin/userList")
     public Result listUsers() throws Exception  {
         return ResultFactory.buildSuccessResult(userService.list());
     }
@@ -36,15 +36,15 @@ public class UserController {
         return ResultFactory.buildSuccessResult("重置密码成功");
     }
 
-    @PostMapping("/march/admin/user")
+    @PostMapping("/march/admin/userUpdate")
     public Result editUser(@RequestBody @Valid User requestUser) {
         userService.editUser(requestUser);
         return ResultFactory.buildSuccessResult("修改用户信息成功");
     }
 
     @GetMapping("/march/admin/userDetail")
-    public Result userDetail(String username) {
-        return ResultFactory.buildSuccessResult(userService.findByUsername(username));
+    public Result userDetail(Integer userId) {
+        return ResultFactory.buildSuccessResult(userService.findById(userId));
     }
 
     @GetMapping("/march/admin/deleUser")
