@@ -45,6 +45,14 @@ public class PointVeiw {
 
     private int resumeId;
 
+    @Column(name = "reason_id")
+    private int reasonId;
+
+    private String reasonName;
+
+    private String remark;
+
+
 
 
 }

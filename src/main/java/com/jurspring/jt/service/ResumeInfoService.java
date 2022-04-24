@@ -4,12 +4,17 @@ import com.jurspring.jt.dao.ResumeInfoDAO;
 import com.jurspring.jt.home.PointVeiw;
 import com.jurspring.jt.home.Recruit;
 import com.jurspring.jt.home.Resumeinfo;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 public class ResumeInfoService {
     @Autowired
@@ -21,7 +26,11 @@ public class ResumeInfoService {
     /**
      * 添加简历
      */
-    public void  addOrUpdate(Resumeinfo resumeinfo) { resumeinfoDAO.save(resumeinfo);}
+    public void  addOrUpdate(Resumeinfo resumeinfo) {
+        //更新提交时间
+        resumeinfo.setSubmitTime(new Date());
+        resumeinfoDAO.save(resumeinfo);
+    }
     /**
      * 删除
      */

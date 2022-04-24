@@ -116,4 +116,7 @@ public class Resumeinfo {
     @Column(name = "hr_id")
     private int hrId;
 
+    @Column(name = "submit_time")
+    private Date submitTime;
+
 }

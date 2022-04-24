@@ -141,7 +141,10 @@ public class UserService {
         userInDB.setSex(user.getSex());
         userInDB.setBirthDate(user.getBirthDate());
         userDAO.save(userInDB);
-        adminUserRoleService.saveRoleChanges(userInDB.getId(), user.getRoles());
+        if(user.getRoles() != null){
+            adminUserRoleService.saveRoleChanges(userInDB.getId(), user.getRoles());
+        }
+
     }
 
     public void deleteById(int id) {

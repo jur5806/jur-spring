@@ -33,8 +33,16 @@ public class PointVeiwController {
 
     @PostMapping("/march/pointsInfoAdd")
     public Result pointsInfoAdd(@RequestBody @Valid PointVeiw pointVeiw) {
-        pointVeiwService.add(pointVeiw);
-        return ResultFactory.buildSuccessResult("修改成功");
+        int status = pointVeiwService.add(pointVeiw);
+        switch (status) {
+            case 0:
+                return ResultFactory.buildFailResult("该账户余额不足");
+            case 1:
+                return ResultFactory.buildSuccessResult("修改成功");
+//            case 2:
+//                return ResultFactory.buildFailResult("修改成功");
+        }
+        return ResultFactory.buildFailResult("未知错误");
     }
 
 
