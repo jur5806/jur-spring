@@ -7,6 +7,7 @@ import com.jurspring.jt.result.ResultFactory;
 import com.jurspring.jt.service.BookService;
 //import com.sun.org.apache.xpath.internal.compiler.Keywords;
 import com.jurspring.jt.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +16,7 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
+@Slf4j
 @RestController
 public class LibraryController {
     @Autowired
@@ -57,18 +58,25 @@ public class LibraryController {
     }
 
     @PostMapping("/march/covers")
-    public String coversUpload(MultipartFile file) {
+    public String coversUpload(MultipartFile file) throws IOException{
+        log.info("5555555");
         String folder = "D:/workspace/img";
+        log.info("555555511");
         File imageFolder = new File(folder);
+        log.info("5555555999");
         File f = new File(imageFolder, StringUtils.getRandomString(6) + file.getOriginalFilename()
                 .substring(file.getOriginalFilename().length() - 4));
+        log.info("55555559998");
         if (!f.getParentFile().exists())
+            log.info("55555559995");
             f.getParentFile().mkdirs();
         try {
+            log.info(f.getName());
             file.transferTo(f);
-            String imgURL = "http://localhost:8822/march/file/" + f.getName();
+            String imgURL = "http://localhost:8810/march/file/" + f.getName();
             return imgURL;
         } catch (IOException e) {
+            log.info("3333");
             e.printStackTrace();
             return "";
         }

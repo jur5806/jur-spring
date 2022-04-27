@@ -44,6 +44,9 @@ public class Recruit {
     @Column(name = "rc_describe")
     private String rcDescribe;
 
+    @Column(name = "rc_salary_welfare")
+    private String rcSalaryWelfare;
+
     @Column(name = "station_title")
     private String stationTitle;
 
