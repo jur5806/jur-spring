@@ -25,8 +25,8 @@ public class PointVeiwService {
     ReasonDAO reasonDAO;
 
     public List<PointVeiw> list() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "pointsId");
-        return pointVeiwDAO.findAll(sort);
+//        Sort sort = Sort.by(Sort.Direction.DESC, "pointsId");
+        return pointVeiwDAO.findAll();
     }
 
     public List<PointVeiw>  findAllByuserId(int userId) {
@@ -52,6 +52,7 @@ public class PointVeiwService {
         }
         //查用户积分记录
         log.info(String.valueOf(point));
+        pointVeiw.setPointsNum(point);
         User userInDB = userDAO.findById(pointVeiw.getUserId());
         if(pointVeiw.getChangeType() == 1){
             userInDB.setSumPoints(userInDB.getSumPoints()+point);

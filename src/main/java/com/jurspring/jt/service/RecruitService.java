@@ -49,7 +49,8 @@ public class RecruitService {
      */
     public void  addOrUpdate(Recruit recruit) {
         recruit.setRcStartTime(DateUtilJava8.getNow());
-        recruitDAO.save(recruit);}
+        recruitDAO.save(recruit);
+    }
     /**
      * 删除
      */
@@ -73,7 +74,7 @@ public class RecruitService {
         recruits.forEach(r -> {
             int id = r.getRecruitId();
             List<Resumeinfo> resumeinfo= resumeinfoDAO.findAllByRecruitId(r.getRecruitId());
-            r.setDepartmentState(resumeinfo.size());
+//            r.setDepartmentState(resumeinfo.size());
             recruitDAO.save(r);
         });
         return recruitDAO.findByHrId(hrId);
