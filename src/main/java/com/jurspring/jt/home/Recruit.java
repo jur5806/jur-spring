@@ -62,6 +62,9 @@ public class Recruit {
     @Column(name = "eduction_class")
     private int eductionClass;
 
+    @Column(name = "resume_num")
+    private int resumeNum = 0;
+
     /**
      * User status.
      */

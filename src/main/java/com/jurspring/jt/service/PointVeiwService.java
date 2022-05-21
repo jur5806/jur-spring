@@ -34,24 +34,18 @@ public class PointVeiwService {
     }
     public int add(PointVeiw pointVeiw) {
         int point = 0;
-//        int limited = 0;
         Integeral integeralInDB = integeralDAO.findByintegralSetingId(1);
         if(pointVeiw.getEventType() == 1){
             point = integeralInDB.getResumePassValue();
-
-//            limited = integeralInDB.getResumeNumberLimited();
         }else if(pointVeiw.getEventType() == 2){
             point = integeralInDB.getViewPassValue();
-//            limited = integeralInDB.getViewNumberLimited();
         }
         else if(pointVeiw.getEventType() == 3){
             point = integeralInDB.getSuccessInValue();
-//            limited = integeralInDB.getViewNumberLimited();
         }else{
             point = pointVeiw.getPointsNum();
         }
         //查用户积分记录
-        log.info(String.valueOf(point));
         pointVeiw.setPointsNum(point);
         User userInDB = userDAO.findById(pointVeiw.getUserId());
         if(pointVeiw.getChangeType() == 1){
@@ -61,14 +55,10 @@ public class PointVeiwService {
                 return 0;
             }
             int a = userInDB.getSumPoints()-point;
-            log.info(String.valueOf(a));
-            log.info(String.valueOf(point));
             userInDB.setSumPoints(userInDB.getSumPoints()-point);
         }
         pointVeiw.setName(userInDB.getName());
         pointVeiw.setPhone(userInDB.getPhone());
-
-        log.info(String.valueOf(pointVeiw.getResumeId()));
         if("0".equals(String.valueOf(pointVeiw.getResumeId()))){
             pointVeiw.setResumeId(0);
         }else{
@@ -84,7 +74,6 @@ public class PointVeiwService {
         }
         pointVeiw.setEventTime(new Date());
         userDAO.save(userInDB);
-        log.info("---"+pointVeiw.getEventType()+"-----");
         pointVeiwDAO.save(pointVeiw);
         return 1;
     }

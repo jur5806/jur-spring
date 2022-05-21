@@ -40,7 +40,6 @@ public class RecruitService {
             log.info("全部");
             Sort sort = Sort.by(Sort.Direction.DESC, "recruitId");
             return recruitDAO.findAll(sort);
-
         }
 //        return recruitDAO.findAll();
     }
@@ -72,9 +71,11 @@ public class RecruitService {
 
         List<Recruit> recruits= recruitDAO.findByHrId(hrId);
         recruits.forEach(r -> {
-            int id = r.getRecruitId();
+//            int id = r.getRecruitId();
             List<Resumeinfo> resumeinfo= resumeinfoDAO.findAllByRecruitId(r.getRecruitId());
-//            r.setDepartmentState(resumeinfo.size());
+            int a =resumeinfo.size();
+            log.info(String.valueOf(a));
+            r.setResumeNum(resumeinfo.size());
             recruitDAO.save(r);
         });
         return recruitDAO.findByHrId(hrId);
